@@ -31,6 +31,11 @@ display();
 
 eta = 0.1;
 
+document.getElementById("eta").onchange = function (e) {
+  eta = e.target.value/10;
+  console.log(eta);
+}
+
 document.getElementById("step").onclick = function () {
   for (n=0; n<100; n++) {
     mindist = 2;
@@ -39,7 +44,7 @@ document.getElementById("step").onclick = function () {
     i1 = Math.random();
     i2 = Math.random();
     ctx1.beginPath();
-    ctx1.arc(i1*255,i2*255,1,0,2*Math.PI,true);
+    ctx1.arc(i1*255,i2*255,0.3,0,2*Math.PI,true);
     ctx1.stroke(); 
 
     for (i=0;i<8;i++) {
@@ -53,8 +58,8 @@ document.getElementById("step").onclick = function () {
         }
       }
     }
-    for (i=Math.max(0,mini-1);i<Math.min(mini+1,7);i++) {
-      for (j=Math.max(0,minj-1);j<Math.min(minj+1,7);j++) {
+    for (i=Math.max(0,mini-1);i<=Math.min(mini+1,7);i++) {
+      for (j=Math.max(0,minj-1);j<=Math.min(minj+1,7);j++) {
         network[i][j].w1 += eta*(i1 - network[i][j].w1);
         network[i][j].w2 += eta*(i2 - network[i][j].w2);
       }
