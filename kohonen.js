@@ -13,6 +13,7 @@ for (i=0;i<8;i++) {
     network[i][j] = new Neuron();
   }
 }
+tracked = [randrange(8), randrange(8)];
 
 console.log(network);
 
@@ -26,8 +27,19 @@ ctx2 = canvas2.getContext('2d');
 ctx2.fillStyle = "lavender";
 ctx2.fillRect(0,0,canvas2.width,canvas2.height);
 
+canvas3 = document.getElementById("tracks");
+ctx3 = canvas3.getContext('2d');
+ctx3.fillStyle = "oldlace";
+ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+ctx3.strokeStyle = "black";
+ctx3.beginPath();
+ctx3.moveTo(255*network[tracked[0]][tracked[1]].w1,255*network[tracked[0]][tracked[1]].w2);
+
 display();
 
+function randrange(n) {
+  return Math.floor(n*Math.random());
+}
 
 eta = 0.1;
 
@@ -95,6 +107,11 @@ function display() {
       }
     }
   }
+  ctx3.lineTo(255*network[tracked[0]][tracked[1]].w1,255*network[tracked[0]][tracked[1]].w2);
+  ctx3.stroke();
+  ctx3.beginPath();
+  ctx3.moveTo(255*network[tracked[0]][tracked[1]].w1,255*network[tracked[0]][tracked[1]].w2);
+
 }
 
 /*
