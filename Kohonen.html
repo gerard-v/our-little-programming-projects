@@ -3,10 +3,13 @@
 <title>Kohonen</title>
 </head>
 <body>
+<h1>Kohonen's self-organising feature map</h1>
 <canvas id="inputs" width="256" height="256"></canvas>
 <canvas id="neurons" width="256" height="256"></canvas>
 <canvas id="tracks" width="256" height="256"></canvas>
-<br><button id="step">step</button><input id="eta" type="range" max="10" min="0"></input>
+<br><button id="step">step</button>
+<input id="stepsize" type="number" max="200" min="0" step="1" value="100"></input>
+<input id="eta" type="range" max="10" min="0" step="1" value="7"></input>
 <script src="kohonen.js"></script>
 </body>
 </html>

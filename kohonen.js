@@ -1,3 +1,11 @@
+function sq(x) {
+  return x*x;
+}
+
+function dist(p1x, p1y, p2x, p2y) {
+  return Math.sqrt(sq(p1x-p2x) + sq(p1y-p2y));
+}
+
 class Neuron {
   constructor() {
     var n; // Length of weight vector
@@ -42,20 +50,45 @@ function randrange(n) {
   return Math.floor(n*Math.random());
 }
 
-eta = 0.1;
+stepsize = 100;
+eta = 0.125;
 
 document.getElementById("eta").onchange = function (e) {
-  eta = Math.pow(2,(e.target.value-10));
+  eta = (e.target.value==0) ? 0 : Math.pow(2,(e.target.value-10));
   console.log(eta);
 }
 
+document.getElementById("stepsize").onchange = function (e) {
+  stepsize = e.target.value;
+}
+
+canvas2.onclick = function(e) {
+  console.log(e.offsetX,e.offsetY);
+  for (i=0; i<8; i++) {
+    for (j=0; j<8; j++) {
+      testneuron = network[i][j];
+      if (dist(255*testneuron.w1,255*testneuron.w2,e.offsetX,e.offsetY)<=2){
+        console.log(testneuron);
+/*      ctx3.stroke();
+        trackedneuron = testneuron;
+        ctx3.beginPath();
+        ctx3.moveTo(255*trackedNeuron.w1,255*trackedNeuron.w2);
+*/    }
+    }
+  }
+}
+
 document.getElementById("step").onclick = function () {
-  for (n=0; n<100; n++) {
+  for (n=0; n<stepsize; n++) {
     mindist = 2;
     mini = 9;
     minj = 9;
     i1 = Math.random();
     i2 = Math.random();
+    while ((i1-0.5)*(i1-0.5) + (i2-0.25)*(i2-0.25) > 0.2*0.2) {
+      i1 = Math.random();
+      i2 = Math.random();
+    }
     ctx1.beginPath();
     ctx1.arc(i1*255,i2*255,0.3,0,2*Math.PI,true);
     ctx1.stroke(); 
@@ -115,8 +148,3 @@ function display() {
 
 }
 
-/*
-    n = Math.sqrt(this.w1*this.w1 + this.w2*this.w2);
-    this.w1 /= n;
-    this.w2 /= n;
-*/
