@@ -43,8 +43,14 @@ ctx3.strokeStyle = "black";
 ctx3.beginPath();
 ctx3.moveTo(255*trackedNeuron.w1,255*trackedNeuron.w2);
 ctx3.arc(trackedNeuron.w1*255,trackedNeuron.w2*255,2,0,2*Math.PI,true);
+ctx3.stroke();
 
+canvas4 = document.getElementById("colors");
+ctx4 = canvas4.getContext('2d');
+ctx4.fillStyle = "black";
+ctx4.fillRect(0,0,canvas4.width,canvas4.height);
 display();
+
 
 function randrange(n) {
   return Math.floor(n*Math.random());
@@ -69,11 +75,17 @@ canvas2.onclick = function(e) {
       testneuron = network[i][j];
       if (dist(255*testneuron.w1,255*testneuron.w2,e.offsetX,e.offsetY)<=2){
         console.log(testneuron);
-/*      ctx3.stroke();
-        trackedneuron = testneuron;
+        ctx3.stroke();
+        ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+        // ctx3.strokeStyle = "black";
+        trackedNeuron = testneuron;
         ctx3.beginPath();
         ctx3.moveTo(255*trackedNeuron.w1,255*trackedNeuron.w2);
-*/    }
+        ctx3.arc(trackedNeuron.w1*255,trackedNeuron.w2*255,2,0,2*Math.PI,true);
+        ctx3.stroke();
+        ctx3.beginPath();
+        ctx3.moveTo(255*trackedNeuron.w1,255*trackedNeuron.w2);
+      }
     }
   }
 }
@@ -85,7 +97,7 @@ document.getElementById("step").onclick = function () {
     minj = 9;
     i1 = Math.random();
     i2 = Math.random();
-    while ((i1-0.5)*(i1-0.5) + (i2-0.25)*(i2-0.25) > 0.2*0.2) {
+    while (dist(i1,i2,0.5,0.5) > 0.2) {
       i1 = Math.random();
       i2 = Math.random();
     }
@@ -95,10 +107,9 @@ document.getElementById("step").onclick = function () {
 
     for (i=0;i<8;i++) {
       for (j=0;j<8;j++) {
-        dist = Math.pow(i1-network[i][j].w1,2);
-        dist += Math.pow(i2-network[i][j].w2,2);
-        if (dist < mindist) {
-          mindist = dist;
+        var d = dist(i1,i2,network[i][j].w1,network[i][j].w2);
+        if (d < mindist) {
+          mindist = d;
           mini = i;
           minj = j;
         }
@@ -145,6 +156,14 @@ function display() {
   ctx3.stroke();
   ctx3.beginPath();
   ctx3.moveTo(255*trackedNeuron.w1,255*trackedNeuron.w2);
+
+  for (i=0;i<8;i++) {
+    for (j=0;j<8;j++) {
+      var n = network[i][j];
+      ctx4.fillStyle = 'rgb('+Math.floor(255*n.w1)+','+Math.floor(255*n.w2)+',0)';
+      ctx4.fillRect(32*i,32*j,32,32);
+    }
+  }
 
 }
 

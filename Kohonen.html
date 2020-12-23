@@ -4,12 +4,17 @@
 </head>
 <body>
 <h1>Kohonen's self-organising feature map</h1>
+<h4>Network</h4>
+<input id="eta" type="range" max="10" min="0" step="1" value="7"></input>
+<h4>Inputs</h4>
 <canvas id="inputs" width="256" height="256"></canvas>
 <canvas id="neurons" width="256" height="256"></canvas>
+<br>
+<canvas id="colors" width="256" height="256"></canvas>
 <canvas id="tracks" width="256" height="256"></canvas>
+<h4>Simulation controls</h4>
 <br><button id="step">step</button>
 <input id="stepsize" type="number" max="200" min="0" step="1" value="100"></input>
-<input id="eta" type="range" max="10" min="0" step="1" value="7"></input>
 <script src="kohonen.js"></script>
 </body>
 </html>
