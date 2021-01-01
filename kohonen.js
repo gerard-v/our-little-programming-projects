@@ -97,10 +97,14 @@ document.getElementById("step").onclick = function () {
     minj = 9;
     i1 = Math.random();
     i2 = Math.random();
-    while (dist(i1,i2,0.5,0.5) > 0.2) {
-      i1 = Math.random();
-      i2 = Math.random();
+/**/
+    if (document.getElementById("shape").value === "circle") {
+      while (dist(i1,i2,0.5,0.5) > 0.5) {
+        i1 = Math.random();
+        i2 = Math.random();
+      }
     }
+/**/
     ctx1.beginPath();
     ctx1.arc(i1*255,i2*255,0.3,0,2*Math.PI,true);
     ctx1.stroke(); 
