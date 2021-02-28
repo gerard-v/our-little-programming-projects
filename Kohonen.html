@@ -4,13 +4,16 @@
 </head>
 <body>
 <h1>Kohonen's self-organising feature map</h1>
-<h4>Network</h4>
-<input id="eta" type="range" max="10" min="0" step="1" value="7"></input>
-<h4>Inputs</h4>
-<input type="radio" id="shape" name="all" value="all">
+<h4>Network controls</h4>
+<label>network size</label><input id="size" type="range" max="30" min="3" step="1" value="8"></input><br>
+<label>learning factor</label><input id="eta" type="range" max="10" min="0" step="1" value="7"></input>
+<br><br><button id="new">new</button>
+<h4>Input controls</h4>
+<input type="radio" id="all" name="shape" value="all" checked>
 <label for="all">All (/rectangle)</label><br>
-<input type="radio" id="shape" name="circle" value="circle" checked>
+<input type="radio" id="circle" name="shape" value="circle">
 <label for="circle">Circle</label><br>
+<h4>Display</h4>
 <canvas id="inputs" width="256" height="256"></canvas>
 <canvas id="neurons" width="256" height="256"></canvas>
 <br>
@@ -20,6 +23,12 @@
 <br><button id="step">step</button>
 <input id="stepsize" type="number" max="200" min="0" step="1" value="100"></input>
 <script src="kohonen.js"></script>
+<h4>Description</h4>
+This neural network simulation in JavaScript demonstrates <em>unsupervised
+learning</em>: it learns without being provided with the <q>right</q> answers to
+examples (which would constitute <em>supervised learning</em>), or even without
+being told whether its own answers are right or wrong (which would be <em>reinforcement
+learning</em>).
 </body>
 </html>
 
