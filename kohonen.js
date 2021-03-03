@@ -4,6 +4,8 @@ function sq(x) {
   return x*x;
 }
 
+var running = false;
+
 canvas1 = document.getElementById("inputs");
 ctx1= canvas1.getContext('2d');
 
@@ -44,7 +46,7 @@ class Neuron {
     ctx2.arc(this.w1*canvas2.width,this.w2*canvas2.height,2,0,2*Math.PI,true);
     ctx2.stroke(); 
 
-    ctx4.fillStyle = 'rgb('+Math.floor(255*this.w1)+','+Math.floor(255*this.w2)+',0)';
+    ctx4.fillStyle = 'rgb('+256*this.w1+','+256*this.w2+',0)';
     ctx4.fillRect(this.scale*this.i,this.scale*this.j,this.scale,this.scale);
   }
 }
@@ -53,7 +55,7 @@ class Network {
   constructor(length, width) {
     this.size = {'x': length, 'y': width};
     var i,j;
-    let scale=Math.floor(canvas4.width/this.size.x);
+    let scale=canvas4.width/this.size.x;
     this.neurons = new Array(length);
     for (i=0;i<length;i++) {
       this.neurons[i] = new Array(width);
@@ -221,6 +223,16 @@ document.getElementById("new").onclick = function () {
 }
 
 document.getElementById("step").onclick = function () {
+  if (running) {
+    running = false;
+  }
+  else {
+    running = true;
+    simulationLoop();
+  }
+}
+
+function simulationLoop() {
   var input;
   for (var n=0; n<stepsize; n++) {
     input = generateInput();
@@ -231,6 +243,8 @@ document.getElementById("step").onclick = function () {
     network.update();
   }
   network.display();
+  if (running)
+    requestAnimationFrame(simulationLoop); // Weghalen indien setInterval() gebruikt
 }
 
 initialize(8);
