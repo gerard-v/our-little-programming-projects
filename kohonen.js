@@ -48,6 +48,11 @@ class Neuron {
 
     ctx4.fillStyle = 'rgb('+256*this.w1+','+256*this.w2+',0)';
     ctx4.fillRect(this.scale*this.i,this.scale*this.j,this.scale,this.scale);
+    if (this == trackedNeuron){
+      ctx4.strokeStyle = "white";
+      ctx4.lineWidth = 2;
+      ctx4.strokeRect(this.scale*this.i,this.scale*this.j,this.scale-1,this.scale-1); // -1 bcause lineWidth = 2
+    }
   }
 }
 
@@ -192,11 +197,21 @@ canvas2.onclick = function(e) {
         ctx3.stroke();
         ctx3.beginPath();
         ctx3.moveTo(X,Y);
+        network.display();
       }
     }
   }
 }
 
+canvas4.onclick = function(e) {
+  let squareSizeHor = canvas4.width/network.size.x;
+  let squareSizeVer = canvas4.height/network.size.y;
+  console.log(e.offsetX,e.offsetY);
+  trackedNeuron = network.neurons[Math.floor(e.offsetX/squareSizeHor)][Math.floor(e.offsetY/squareSizeVer)];
+  network.display();
+}
+
+  
 function getInputShape() {
   var radioButtons = document.getElementsByName("shape");
   for (choice of radioButtons)
@@ -246,6 +261,9 @@ function simulationLoop() {
   if (running)
     requestAnimationFrame(simulationLoop); // Weghalen indien setInterval() gebruikt
 }
+
+// trackedNeuron is being referenced in neuron.display(), so:
+var trackedNeuron = new Neuron(0,0,0); // Is this really necessary?
 
 initialize(8);
 
