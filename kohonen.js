@@ -183,32 +183,35 @@ canvas2.onclick = function(e) {
   for (i=0; i<network.size.x; i++) {
     for (j=0; j<network.size.y; j++) {
       testneuron = network.neurons[i][j];
-      let X = canvas3.width*testneuron.w1;
-      let Y = canvas3.height*testneuron.w2;
       if (dist(canvas2.width*testneuron.w1,canvas2.height*testneuron.w2,e.offsetX,e.offsetY)<=2){
         console.log(testneuron);
-        ctx3.stroke();
-        ctx3.fillRect(0,0,canvas3.width,canvas3.height);
-        // ctx3.strokeStyle = "black";
-        trackedNeuron = testneuron;
-        ctx3.beginPath();
-        ctx3.moveTo(X,Y);
-        ctx3.arc(X,Y,2,0,2*Math.PI,true);
-        ctx3.stroke();
-        ctx3.beginPath();
-        ctx3.moveTo(X,Y);
-        network.display();
+        changeTrackedNeuron(testneuron);
       }
     }
   }
+}
+
+changeTrackedNeuron = function(newTrackedNeuron) {
+  ctx3.stroke();
+  ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+  // ctx3.strokeStyle = "black";
+  trackedNeuron = newTrackedNeuron;
+  let X = canvas3.width*trackedNeuron.w1;
+  let Y = canvas3.height*trackedNeuron.w2;
+  ctx3.beginPath();
+  ctx3.moveTo(X,Y);
+  ctx3.arc(X,Y,2,0,2*Math.PI,true);
+  ctx3.stroke();
+  ctx3.beginPath();
+  ctx3.moveTo(X,Y);
+  network.display();
 }
 
 canvas4.onclick = function(e) {
   let squareSizeHor = canvas4.width/network.size.x;
   let squareSizeVer = canvas4.height/network.size.y;
   console.log(e.offsetX,e.offsetY);
-  trackedNeuron = network.neurons[Math.floor(e.offsetX/squareSizeHor)][Math.floor(e.offsetY/squareSizeVer)];
-  network.display();
+  changeTrackedNeuron(network.neurons[Math.floor(e.offsetX/squareSizeHor)][Math.floor(e.offsetY/squareSizeVer)]);
 }
 
   
