@@ -1,3 +1,7 @@
+/*
+  Made by HB & GV
+*/
+
 var network;
 
 function sq(x) {
@@ -137,10 +141,10 @@ class Network {
 
 }
 
-function initialize(size) {
-  network = new Network(size,size);
+function initialize(height,width) {
+  network = new Network(height,width);
 
-  trackedNeuron = network.neurons[randrange(size)][randrange(size)];
+  trackedNeuron = network.neurons[randrange(height)][randrange(width)];
 
   console.log(network);
 
@@ -237,7 +241,7 @@ function generateInput() {
 }
 
 document.getElementById("new").onclick = function () {
-  initialize(document.getElementById("size").value);
+  initialize(document.getElementById("size").value,document.getElementById("width").value);
 }
 
 document.getElementById("step").onclick = function () {
@@ -268,5 +272,5 @@ function simulationLoop() {
 // trackedNeuron is being referenced in neuron.display(), so:
 var trackedNeuron = new Neuron(0,0,0); // Is this really necessary?
 
-initialize(8);
+initialize(8,8);
 
